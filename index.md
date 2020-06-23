@@ -36,6 +36,17 @@ technical hitches, and be aware that timings for different sections laid out
 in the schedule below may not be adhered to. There may be some necessity to
 make adjusments to the course as we go.
 
+> ## Prerequisites
+>
+> __**Some basic experience of using a UNIX/LINUX command line is assumed**__
+> 
+> __**Some R knowledge is assumed and essential. Without it, you
+> will struggle on this course.**__ 
+> If you are not familiar with the R statistical programming language we
+> strongly encourage you to work through an introductory R course before
+> attempting these materials.
+> We recommend our [Introduction to R course](https://bioinformatics-core-shared-training.github.io/r-intro/)
+
 ## Google Document
 
 There is a [Google Document](html/Analysis_of_bulk_RNA-seq_data_-_Main_Document.pdf) 
@@ -156,17 +167,6 @@ results](html/05_Annotation_and_Visualisation.html) - Abbi Edwards
     - [practical solutions](html/06_Gene_set_testing.Solutions.html)  
 
 <!-- Goodbye: Stephane -->
-
-> ## Prerequisites
->
-> __**Some basic experience of using a UNIX/LINUX command line is assumed**__
-> 
-> __**Some R knowledge is assumed and essential. Without it, you
-> will struggle on this course.**__ 
-> If you are not familiar with the R statistical programming language we
-> strongly encourage you to work through an introductory R course before
-> attempting these materials.
-> We recommend our [Introduction to R course](https://bioinformatics-core-shared-training.github.io/r-intro/)
 
 ## Source Materials for Practicals
 
