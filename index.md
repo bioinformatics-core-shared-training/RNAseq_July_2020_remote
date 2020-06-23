@@ -65,15 +65,15 @@ we will all need to follow a [few simple rules](https://docs.google.com/presenta
    
    This can be found by clicking on the 'Participants' button. A tutor will
    then contact you in the chat. If necessary, you and the tutor can be moved
-   to a breakout room where you will be discuss your issue in more detail.
+   to a breakout room where you can discuss your issue in more detail.
 
-3. Please ask any general questions by typing in them into the Google Doc mentioned above
+3. Please ask any general question by typing it into the Google Doc mentioned above
 
 4. During practicals, when you are done, please press the green "Yes" button: 
     
     ![](images/yes_button.png)
 
-   this way we will know when we can move on.
+   This way we will know when we can move on.
 
 ## Timetable
 
@@ -172,7 +172,7 @@ results](html/05_Annotation_and_Visualisation.html) - Abbi Edwards
 
 The lecture slides and other source materials, including R code and 
 practical solutions, can be found in the course's [Github 
-repository](https://github.com/bioinformatics-core-shared-training/RNAseq_May_2020_remote)
+repository](https://github.com/bioinformatics-core-shared-training/RNAseq_July_2020_remote)
 
 ## Extended materials
 
