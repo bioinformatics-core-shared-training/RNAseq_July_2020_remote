@@ -49,19 +49,11 @@ make adjusments to the course as we go.
 
 ## Google Document
 
-There is a [Google Document](html/Analysis_of_bulk_RNA-seq_data_-_Main_Document.pdf) 
-for the course. 
-
-It contains useful information and links relevant to the course.
+There will be a Google Document for the course that contains useful information and links.
 
 Please use it to post any questions you have during the course. The
 trainers will be monitoring the document and will answer questions as quickly
 as they can.
-
-<!--
-There were over 140 questions during the first course!! A pdf of the final Google 
-Document can be found [here](html/Analysis_of_bulk_RNA-seq_data_-_Main_Document.pdf).
--->
 
 ## Course etiquette
 
