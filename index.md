@@ -143,19 +143,19 @@ Couturier
 
 <!-- Welcome: Stephane/Ashley?  -->
 
-9:30 - 12:30 - [Differential Expression for
+9:30 - 12:15 - [Differential Expression for
 RNA-seq](html/04_DE_analysis_with_DESeq2.html) - Ashley Sawle   
     - [practical solutions](html/04_DE_analysis.Solutions.html)   
     - [R script from session](live_scripts/04_DE_analysis_with_DESeq2.R)
 
-12:30 - 13:30 Lunch
+12:15 - 13:15 Lunch
 
-13:00 - 15:45 [Annotation and Visualisation of RNA-seq
+13:15 - 15:30 [Annotation and Visualisation of RNA-seq
 results](html/05_Annotation_and_Visualisation.html) - Abbi Edwards  
     - [practical solutions](html/05_Annotation_and_Visualisation.Solutions.html)  
     - [R script from session](live_scripts/05_Annotation_and_Visualisation.R)
 
-15:45 - 17:00 [Gene-set testing](html/06_Gene_set_testing.html) - Stephane Ballereau   
+15:30 - 17:00 [Gene-set testing](html/06_Gene_set_testing.html) - Stephane Ballereau   
     - [practical solutions](html/06_Gene_set_testing.Solutions.html)  
 
 <!-- Goodbye: Stephane -->
