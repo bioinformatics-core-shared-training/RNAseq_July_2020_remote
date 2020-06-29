@@ -13,7 +13,7 @@
 * Dominique-Laurent Couturier - Bioinformatics Core, Cancer Research UK Cambridge Institute 
 * Jon Price - Miska Group, Gurdon Institute, Cambridge
 * Manik Garg - Brazma Group, EBI
-* Sankari Nagarajan - Carroll Group, Cancer Research UK Cambridge Institute
+* Sankari Nagarajan - School of Biological Sciences, University of Manchester
 * Stephane Ballereau - Bioinformatics Core, Cancer Research UK Cambridge Institute
 * Zeynep Kalender Atak - Miller Group, Cancer Research UK Cambridge Institute
 
