@@ -12,7 +12,6 @@
 * Chandra Chilamakuri - Bioinformatics Core, Cancer Research UK Cambridge Institute
 * Dominique-Laurent Couturier - Bioinformatics Core, Cancer Research UK Cambridge Institute 
 * Jon Price - Miska Group, Gurdon Institute, Cambridge
-* Kamal Kishore - Bioinformatics Core, Cancer Research UK Cambridge Institute
 * Manik Garg - Brazma Group, EBI
 * Sankari Nagarajan - Carroll Group, Cancer Research UK Cambridge Institute
 * Stephane Ballereau - Bioinformatics Core, Cancer Research UK Cambridge Institute
