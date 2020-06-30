@@ -15,7 +15,7 @@ editor_options:
   chunk_output_type: inline
 ---
 
-```{r setup, include=TRUE, cache=FALSE}
+```{r setup, include=FALSE, cache=FALSE}
 library(tidyverse)
 ```
 
