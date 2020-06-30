@@ -74,7 +74,7 @@ sampleinfo
 The raw reads were aligned using HISAT2 [@Kim2015] to the GRCm38 mouse reference
 genome from Ensembl. featureCounts [@Liao2014] was used to count reads against
 the Ensembl gene annotation and generate a counts matrix (as described in 
-[Section 1](01_Counting.html)).
+[Section 1](E_Read_Counts_with_Subread.practical.html)).
 
 First we need to read the data into R from the file in the *data* directory.
 
@@ -269,11 +269,11 @@ boxplot(logcounts,
         las=2,
         col=statusCol)
 # Let's add a blue horizontal line that corresponds to the median
-abline(h=median(as.matrix(logcounts)), col="blue")
+abline(h=median(logcounts), col="blue")
 ```
 
 From the boxplots we see that overall the density distributions of raw
-log-intensities are not identical but still not very different. If a sample is
+log-counts are not identical but still not very different. If a sample is
 really far above or below the blue horizontal line we may need to investigate
 that sample further.
 
