@@ -320,8 +320,6 @@ legend("topright", legend = leg, pt.bg = cols, pch=21, bty="n")
     margin-left: 40px; 
     margin-top: 50px">
 
-* RNAseq counts for lowly expressed genes vary more than for highly expressed genes
-
 * Use the Negative Binomial distribution
 
 * In the NB distribution $mean$ not equal to $variance$
@@ -359,6 +357,16 @@ legend("topright", legend = leg, pt.bg = cols, pch=21, bty="n")
 
 <img src="images/dispersion.png" style="width: 45%; margin-top: 40px">
 
+
+## Differential Expression - worrying dispersion plot examples
+
+<div><br></div>
+
+<img src="images/bad_dispersion.png" class="centerimg" style="width: 100%">
+
+<div style="text-align: right;">
+    Bad dispersion plots from: https://github.com/hbctraining/DGE_workshop
+</div>
 
 ## Differential Expression - linear models
 
