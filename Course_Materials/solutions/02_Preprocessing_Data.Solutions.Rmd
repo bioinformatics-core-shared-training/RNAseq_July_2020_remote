@@ -21,8 +21,9 @@ library(tidyverse)
 ```
 
 ```{r prepareData, message=FALSE, include=FALSE}
+# This chunk is just for the knitting
 # Read the sample information into R
-sampleinfo <- read.delim("../data/SampleInfo.Corrected.txt", 
+sampleinfo <- read.delim("../data/SampleInfo_Corrected.txt", 
                          stringsAsFactors = F)
 # Read the data into R
 seqdata <- read.delim("../data/GSE60450_Lactation.featureCounts", 
