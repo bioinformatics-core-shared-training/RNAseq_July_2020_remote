@@ -32,7 +32,6 @@ output: html_document
   featureCounts \
       -t exon \
       -g gene_id \
-      --primary \
       -a references/Mus_musculus.GRCm38.97.gtf \
       -M \
       -o counts/MCL1.DL.multimapped.featureCounts \
