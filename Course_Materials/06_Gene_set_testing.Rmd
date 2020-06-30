@@ -21,7 +21,7 @@ library(tidyverse)
 
 The list of differentially expressed genes is sometimes so long that its 
 interpretation becomes cumbersome and time consuming. A common downstream 
-procedure is gene set testing. It aims to understand which pathways or gene 
+procedure is gene set testing. It aims at understanding which pathways or gene 
 networks the differentially expressed genes are implicated in.
 
 Various ways exist to test for enrichment of biological pathways.
@@ -130,23 +130,6 @@ plotEnrichment(pathwaysH[["HALLMARK_ESTROGEN_RESPONSE_EARLY"]], rankData)
 Remember to check the [GSEA 
 article](http://www.pnas.org/content/102/43/15545.full) for the complete 
 explanation.
-
-## GSEA table plot
-
-The function `plotGseaTable` allows us to plot a summary figure showing the 
-results for multiple pathways.
-
-```{r gseaTablePlot}
-topPathways <- fgseaRes %>% 
-    top_n(20, wt=-padj) %>% 
-    arrange(-NES) %>% 
-    pull(pathway)
-
-plotGseaTable(pathwaysH[topPathways], 
-              rankData, 
-              fgseaRes, 
-              gseaParam = 0.5)
-```
 
 > ## Challenge 1 {.challenge}
 >
@@ -338,7 +321,7 @@ The package plots the KEGG pathway to a `png` file in the working directory.
 
 mmu03320.pathview.png:
 
-![mmu03320 - PPAR signaling pathway](/home/ubuntu/Course_Materials/results/mmu03320.pathview.png)
+![mmu03320 - PPAR signaling pathway](results/mmu03320.pathview.png)
 
 
 
