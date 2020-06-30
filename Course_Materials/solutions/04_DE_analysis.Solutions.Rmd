@@ -40,15 +40,15 @@ a) Obtain results for luminal vs basal.  Call the new results object `resLvB`.
 
 ```{r}
 resultsNames(ddsObj)
-resBvL <- results(ddsObj, alpha=0.05, name="CellType_luminal_vs_basal")
-resBvL
+resLvB <- results(ddsObj, alpha=0.05, name="CellType_luminal_vs_basal")
+resLvB
 ```
 
 
 b) How many significantly upregulated genes are there?
 
 ```{r}
-sum(resBvL$padj < 0.05 & resBvL$log2FoldChange > 0, na.rm = TRUE)
+sum(resLvB$padj < 0.05 & resLvB$log2FoldChange > 0, na.rm = TRUE)
 ```
 
 #### **Challenge 2 - Contrasts** {.challenge} 
@@ -80,7 +80,7 @@ warranted. Let's test that.
    CellType and Status (`~ CellType * Status`)
 
 ```{r}
-design <- as.formula(~ CellType * Status)
+design <- as.formula(~ CellType + Status + CellType:Status)
 ddsObj2.raw <- DESeqDataSetFromMatrix(countData = countdata, 
                                      colData = sampleinfo,
                                      design = design)

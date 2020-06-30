@@ -6,8 +6,6 @@ date: '`r format(Sys.time(), "Last modified: %d %b %Y")`'
 output:
   html_document:
     toc: yes
-  html_notebook:
-    toc: yes
 minutes: 300
 layout: page
 bibliography: ref.bib
@@ -74,7 +72,7 @@ sampleinfo
 The raw reads were aligned using HISAT2 [@Kim2015] to the GRCm38 mouse reference
 genome from Ensembl. featureCounts [@Liao2014] was used to count reads against
 the Ensembl gene annotation and generate a counts matrix (as described in 
-[Section 1](01_Counting.html)).
+[Section 1](E_Read_Counts_with_Subread.practical.html)).
 
 First we need to read the data into R from the file in the *data* directory.
 
@@ -109,7 +107,7 @@ Let's have a quick look at this by playing with our `sampleinfo` table.
 Suppose we wanted a new sample table that:
 
 1. Just includes the "basal" samples
-2. Only has the columns "CellType" and "Group"
+2. Only has the columns "CellType" and "Status"
 3. Renames the "CellType" column as "Cell"
 
 With `dplyr` we can use three new functions: `filter`, `select` and `rename`:
@@ -117,7 +115,7 @@ With `dplyr` we can use three new functions: `filter`, `select` and `rename`:
 ```{r dplyr, eval=FALSE}
 newTable <- sampleinfo
 newTable <- filter(newTable, CellType=="basal")
-newTable <- select(newTable, CellType, Group)
+newTable <- select(newTable, CellType, Status)
 newTable <- rename(newTable, Cell=CellType)
 ```
 
@@ -132,7 +130,7 @@ specifying the object we are working with:
 ```{r pipe, eval=FALSE}
 newTable <- sampleinfo %>%
     filter(CellType=="basal") %>%
-    select(CellType, Group) %>% 
+    select(CellType, Status) %>% 
     rename(Cell=CellType)
 ```
 
@@ -223,22 +221,6 @@ dim(countdata)
 Before moving on to doing the actual differential expression analysis it is
 important to assess the quality of our data.
 
-## Library sizes bar plot
-
-First, we can plot how many reads we have for each sample. Whilst normalisation 
-can account for imbalance in coverage across the samples, extreme differences 
-may be indicative of underlying problems in the samples.
-
-```{r librarySizes}
-librarySizes <- colSums(countdata)
-barplot(librarySizes, 
-        names=names(librarySizes), 
-        las=2, 
-        main="Barplot of library sizes",
-        cex.axis = 0.8)
-abline(h=20e6, lty=2)
-```
-
 ## Count distribution boxplots
 
 Count data is not normally distributed, so if we want to examine the
@@ -269,11 +251,11 @@ boxplot(logcounts,
         las=2,
         col=statusCol)
 # Let's add a blue horizontal line that corresponds to the median
-abline(h=median(as.matrix(logcounts)), col="blue")
+abline(h=median(logcounts), col="blue")
 ```
 
 From the boxplots we see that overall the density distributions of raw
-log-intensities are not identical but still not very different. If a sample is
+log-counts are not identical but still not very different. If a sample is
 really far above or below the blue horizontal line we may need to investigate
 that sample further.
 
@@ -371,14 +353,13 @@ We're going to use another `dplyr` command:
 ```{r correctSampleSheet}
 sampleinfo <- sampleinfo %>% 
     mutate(CellType=ifelse(Sample=="MCL1.DG", "basal", CellType)) %>% 
-    mutate(CellType=ifelse(Sample=="MCL1.LA", "luminal", CellType)) %>% 
-    mutate(Group=str_c(CellType, ".", Status))
+    mutate(CellType=ifelse(Sample=="MCL1.LA", "luminal", CellType))
 ```
 
 ...and export it so that we have the correct version for later use.
 
 ```{r, exportSampleSheet, eval=FALSE}
-write_csv(sampleinfo, "results/SampleInfo_Corrected.txt")
+write_tsv(sampleinfo, "results/SampleInfo_Corrected.txt")
 ```
 
 Let's look at the PCA now.

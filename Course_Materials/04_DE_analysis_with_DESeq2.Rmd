@@ -22,7 +22,7 @@ process the data prior to differential expression analysis.
 
 ```{r recap, eval = FALSE}
 # Read the sample information into a data frame
-sampleinfo <- read_tsv("data/SampleInfo.Corrected.txt")
+sampleinfo <- read_tsv("results/SampleInfo_Corrected.txt")
 
 # Read the data into R
 seqdata <- read_tsv("data/GSE60450_Lactation.featureCounts", comment = "#")
@@ -148,7 +148,7 @@ We can use `plotMA` from `limma` to look at the data in an MA plot
 logcounts <- log2(countdata + 1)
 
 limma::plotMA(logcounts)
-abline(h=0)
+abline(h=0, col="red")
 ```
 
 ```{r}
@@ -156,7 +156,7 @@ normalizedCounts <- counts(ddsObj, normalized=TRUE)
 logNormalizedCounts <- log2(normalizedCounts + 1)
 
 limma::plotMA(logNormalizedCounts)
-abline(h=0)
+abline(h=0, col="red")
 ```
 
 DESeq2 doesn't actually normalise the counts, it uses raw counts and includes
@@ -248,6 +248,18 @@ resPvV_status <- results(ddsObj,
                   name="Status_pregnant_vs_virgin", 
                   alpha = 0.05)
 resPvV_status
+```
+
+How many differentially expressed genes are there at FDR < 0.05
+
+```{r countDEG}
+sum(resPvV_status$padj < 0.05)
+```
+
+We need to remove `NA`'s as the genes that were filtered out by DESeq2 have `NA` in the in the `padj` column
+
+```{r countDEGna}
+sum(resPvV_status$padj < 0.05, na.rm = TRUE)
 ```
 
 Let's get the top 100 genes by adjusted p-value
