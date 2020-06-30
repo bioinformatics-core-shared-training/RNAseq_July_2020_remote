@@ -48,10 +48,11 @@ make adjusments to the course as we go.
 
 ## Google Document
 
-There will be a Google Document for the course that contains useful information and links.
+This [Google Document](https://docs.google.com/document/d/1cTE-UNsmOzm_DD1gcnVwMS0HaFx15okN5FFxP4gPL_4/edit?usp=sharing) contains useful information and links.
 
-Please use it to post any questions you have during the course. The
-trainers will be monitoring the document and will answer questions as quickly
+Please use it to post any questions you have during the course.
+
+The trainers will be monitoring the document and will answer questions as quickly
 as they can.
 
 ## Course etiquette
