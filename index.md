@@ -105,10 +105,12 @@ Methods](html/A_Introduction_to_RNAseq_Methods.html) - Sankari Nagarajan
 13:45 - 15:30 QC of alignment - Zeynep Kalender Atak  
     - [Introductory slides](html/D_QC_of_aligned_reads.html)  
     - [Practical](html/D_QC_of_aligned_reads_practical.html)  
+    - [Practical solutions](html/D_QC_of_aligned_reads.Solutions.html)
 
 15:30 - 17:00 Quantification with SubRead - Chandra Chilamakuri  
     - [Introductory slides](html/E_Read_Counts_with_Subread.html)  
     - [Practical](html/E_Read_Counts_with_Subread.practical.html)  
+    - [Practical solutions](html/E_Read_Counts_with_Subread.Solutions.html)
 
 <!-- Goodbye: Abbi -->
 
