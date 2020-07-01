@@ -212,6 +212,15 @@ quartile
 
 <img src="images/scaling.svg" class="centerimg" style="width: 40%">
 
+## DESeq2 analysis workflow
+
+
+<div style="line-height: 50%;"><br></div>
+
+<img src="images/DESeq2_workflow_00.png" class="centerimg" style="width: 25%">
+
+
+
 ## Normalisation - Geometric mean scaling factor
 
 * Used by DESeq2
@@ -222,9 +231,9 @@ quartile
 3. For each sample calculate the scaling factor as the median of the normalised counts
 </div>
 
-<div style="line-height: 50%;"><br></div>
+<img src="images/DESeq2_workflow_01.png"  style="width: 16%; float: left">
 
-<img src="images/GeometricScaling.svg" class="centerimg" style="width: 63%">
+<img src="images/GeometricScaling.svg" style="margin-left: 15%; width: 63%">
 
 ## Differential Expression
 
@@ -315,10 +324,14 @@ legend("topright", legend = leg, pt.bg = cols, pch=21, bty="n")
 
 ## Differential Expression - Modelling population distributions
 
+<img src="images/DESeq2_workflow_02.png"  style="width: 16%; float: left; 
+    margin-top: 40px">
+
+    
 <div style="width: 45%; float: left; 
-    margin-right: 40px; 
-    margin-left: 40px; 
-    margin-top: 50px">
+    margin-right: 10px; 
+    margin-left: 30px; 
+    margin-top: 40px">
 
 * Use the Negative Binomial distribution
 
@@ -330,7 +343,8 @@ legend("topright", legend = leg, pt.bg = cols, pch=21, bty="n")
 
 </div>
 
-<img src="images/NegativeBinomialDistribution.png" style="width: 45%;">
+<img src="images/NegativeBinomialDistribution.png" style="width: 33%; 
+    margin-top: 40px">
 
 <div style="text-align: right">
     Anders, S. & Huber, W. (2010) Genome Biology
@@ -338,10 +352,14 @@ legend("topright", legend = leg, pt.bg = cols, pch=21, bty="n")
 
 ## Differential Expression - estimating dispersion
 
-<div style="width: 45%; float: left; 
-    margin-right: 40px; 
-    margin-left: 40px; 
-    margin-top: 50px">
+
+<img src="images/DESeq2_workflow_03.png"  style="width: 16%; float: left; 
+    margin-top: 40px">
+
+<div style="width: 40%; float: left; 
+    margin-right: 10px; 
+    margin-left: 30px; 
+    margin-top: 40px">
 
 * Estimating the dispersion parameter can be difficult with a small number of samples 
 
@@ -355,7 +373,7 @@ legend("topright", legend = leg, pt.bg = cols, pch=21, bty="n")
 
 </div>
 
-<img src="images/dispersion.png" style="width: 45%; margin-top: 40px">
+<img src="images/dispersion.png" style="width: 38%; margin-top: 40px">
 
 
 ## Differential Expression - worrying dispersion plot examples
@@ -374,7 +392,10 @@ legend("topright", legend = leg, pt.bg = cols, pch=21, bty="n")
 
 * Linear Model $\rightarrow$ General Linear Model
 
-<div style="width: 30%; margin-left: 16%; padding-top: 5px">
+<img src="images/DESeq2_workflow_04.png"  style="width: 16%; float: left; 
+    padding-top: 5px">
+
+<div style="width: 30%; margin-left: 20%; padding-top: 5px">
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width=7, fig.height=4}
 library(tidyverse)
 dat <- data.frame(C1=rnorm(6, 4, 1),
