@@ -93,10 +93,12 @@ Methods](html/A_Introduction_to_RNAseq_Methods.html) - Sankari Nagarajan
 10:15 - 11:15 Raw read file format and QC - Abbi Edwards  
     - [Introductory slides](html/B_FastQC.html)  
     - [Practical](html/B_FastQC_practical.html)  
+    - [Practical solutions](html/B_FastQC_practical.Solutions.html)
 
 11:15 - 12:45 Short read alignment with HISAT2 - Zeynep Kalender Atak  
     - [Introductory slides](html/C_Alignment_with_HISAT2.html)  
     - [Practical](html/C_Alignment_with_HISAT2_practical.html)  
+    - [Practical solutions](html/C_Alignment_with_HISAT2.Solutions.html)
 
 12:45 - 13:45 Lunch
 
