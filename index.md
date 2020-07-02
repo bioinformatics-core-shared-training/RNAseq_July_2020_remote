@@ -127,7 +127,7 @@ Chandra Chilamakuri
 
 13:30 - 15:30 Statistical Analysis of Bulk RNAseq Data - Dominique-Laurent  
 Couturier     
-    - [Slides](html/StatsRNAseq_Couturier_20-05-2020.pdf)   
+    - [Slides](html/StatsRNAseq_Couturier_02-07-2020.pdf)   
     - [Practical (html)](html/StatsRNAseq_Couturier_20-05-2020.html) [(rmd)](html/StatsRNAseq_Couturier_20-05-2020.Rmd)  
 
 15:30 - 17:00 Experimental Design of Bulk RNAseq studies - Sankari Nagarajan  
