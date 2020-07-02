@@ -1,0 +1,325 @@
+---
+title: "pre-processing"
+author: "Chandra Chilamakuri"
+date: "02/07/2020"
+output: html_document
+---
+
+
+
+## Pre-processsing RNA-seq data
+
+#### So far what we learnt (Introduction)
+
+* Share the screen
+  * Yesterday we looked at the raw reads data, we checked it’s quality using FastQC, we have seen that everything was okay.
+  * Then we aligned reads against reference genome using Hisat2, this step gave bam files, 
+    * We again checked quality of aligned reads for example looked at 
+      * alignment percent 
+      * duplication rate etc.
+      * Very low alignment rate or high duplication rates could indicate problem with data, butour data looked normal.
+  * In the next step we also did  RNAseq specific quality  assessment using Picard tools
+    * Like what percent of reads mapped on exons
+    * 5 ' and 3’ coverage biases etc etc.
+    * We have not seen any red flags
+  * In the next step we used featureCounts to quantify number of reads for each gene
+    * This program gives a table, where each row is a gene and each column is a sample
+    * We have about ~55,000 genes and 12 samples, we are going to look into this file soon.
+  *  This morning I am going to take you through preprocessing
+    * Before that, if there is pre-processing step, there must be processing step and post processing steps.
+    * What is processing step? : Processing step is nothing but actual DE step, in the sense, for each gene you compare mean gene expression between two groups, and see the expression is significantly different, which is indicated by p-values, you will learn this tomorrow morning.
+    * In fact there is also post-processing step, this step is nothing but functional interpretation of expression differences, one of doing this through pathways. You will learn this afternoon.
+    * But for now, lets focus on pre-processing, pre-processing is nothing but, quality check again, but using different parameters.
+    * This morning we are going to look look at two parameters
+      * Read counts distributions between the samples. For this we are going to use box-plots.
+        * Any major skew in the distribution may indicate the problem
+        * Another important parameter we are going to look in the preprocessing is to see how the samples are related to each other in the experiment, for this we use PCA (principal component analysis)
+        * Our expectation is that samples with in group are closely related, when compared to samples between groups. Any deviation from this expectation, will indicate potential confounding effects.  
+        * If we identify confounding factors, we could remove the effect in the DE analysis.
+        * Objective of this session is to use PCA to asses the relationships and try to find potential problems.
+        * Apart from that you will learn how to import data into R
+        * We will reformat that is suitable for DEseq2 (actual DE analysis)
+        
+### Data SET
+
+* Mouse mammary gland data set
+  * This data from 2015 Nature Cell Biology Paper
+  * Both Raw data and counts data is publicly available, if you are curious how to download the data, we have given the instructions in the supplementary material
+  * Over all we have two factors
+    * Factor 1: Cell type
+      * 2 levels : Basal and luminal
+    * Factor 2 : Mouse status
+      * 3 levels : Virgin, pregnant and lactating mice
+      * Total 6 groups, each group has 2 replicates. We have total of 12 samples.
+         
+### Play with data 
+
+* From now we are going to use R for data analysis
+* Easy way to start using R is through Rstudio
+* Please log into RStudio, you must have the details how to log into RStudio
+* Brief introduction To Rstudio
+  * Rstudio interface looks like this, where you have different panes.
+  * getwd() : /home/ubuntu/Course_Materials, if you are not there go ahead and click on files tab, click on home and Course_materials, now you must be in the correct path
+  * Console : where R can accept commands
+  * Plot(1:100)
+  * You can also run R commands from script file., open Rscript and save as pre-processing.R
+    * x <- 1:100
+    * y <- 100:1
+    * ls()
+    * plot(x,y , col='red')
+    * MAC : place the cursor on the line and COMMAND and ENTER
+    * WINDOWS and LINUX users : CONTROL and ENTER
+    * clean the script
+    * This is live coding session, I will be typing the commands in script file
+    * You also do the same
+    * I will be slow and give you enough time
+    * If you have problems, raise hand
+
+                
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+# load libraries : collection of r command to to specific stuff
+# for example DESeq2 is used for DE analysis using RNAseq data
+# tidyverse : Is nothing but modern R, this package makes you code tidy and readable
+
+library(DESeq2)
+library(tidyverse)
+
+# read the sample metadata
+sampleinfo <- read_tsv( 'data/SampleInfo.txt')
+
+# get number of rows and columns
+dim(sampleinfo)
+
+# View what is inside
+View(sampleinfo)
+
+# read counts data
+seqdata <- read_tsv( 'data/GSE60450_Lactation.featureCounts', comment = '#')
+
+# get number of rows and columns
+dim(seqdata)
+View(seqdata)
+
+# in sampleinfo file samples are in rows
+# in seqdata each column is counts from each sample + some annotation columns
+
+####################### BREAK #########################################
+
+# Quick intro to dplyr
+# dplyr is part of tidyverse package
+# this makes easy to process data frames (tables)
+# select : selects columns
+# filter : filter rows bases on condition
+# rename : to rename columns
+
+
+
+
+# format the data
+# DESeq2 accepts numeric matrix data (only counts data)
+# but seqdata is a data frame, which has both annotations and counts data
+class(seqdata)
+names(seqdata)
+# using dplyr commands we can reformat the data
+# create new data object
+# shortcut to create pipe : command shift M
+countdata <- seqdata %>% 
+  column_to_rownames( "Geneid") %>% # turn the gene ID column into row names
+  rename_all( str_remove, ".bam") %>%  # removing .bam from column names
+  select(sampleinfo$Sample) %>% # keeps the the columns with sample names
+  as.matrix()
+
+# peek into the data
+head(countdata)
+class(countdata)
+
+###################### BREAK ###########################
+
+# filtering genes
+# many analysis methods it is advised to filter out as many genes as possible 
+# to avoid the impact of false discovery rate
+# False discovery rate proportional to number of independent tests
+# With DESeq2, it is not necessary to filter the genes prior to analysis
+# You will learn more about independent filtering tomorrow
+# On the other hand filtering reduces the amount of data, there by increasing the processing speed.
+
+# number of rows and columns before filtering
+dim(countdata)
+
+# lets retain the genes more than 5 reads
+# 5 is not magic number, we have chosen arbitrarily
+# how to filter
+
+keep <- rowSums( countdata) > 5
+head(keep)
+# see how many genes have more than 5 reads
+table(keep, useNA='always')
+
+# filter data
+countdata <- countdata[keep,]
+dim(countdata)
+
+
+# quality assessment
+# One important objective of reprocessing step is to asses the overall quality
+# box plots
+# box-plots shows the distribution of read counts
+# skew in the read cont distribution indicates the problem
+# minor skew is taken care by normalization.
+
+# log2 transformation
+# why log2 transform?
+# range is high
+range(countdata)
+
+# range is so high, difficult to visualize the data
+boxplot(countdata)
+
+# one common transformation is log2 transformation
+# log2(o) = infinite
+log2(0)
+
+# to avoid this problem we add 1 and log2 transform
+logcounts <- log2(countdata + 1)
+range(logcounts)
+boxplot(logcounts)
+
+##################### BREAK ##############################################
+
+# to get more information
+# lets color boxplots based on group
+statusCol <- match( sampleinfo$Status, c( 'virgin', 'pregnant', 'lactate')) +1
+
+boxplot(logcounts,
+        xlab='',
+        ylab='log2(counts+1)',
+        las=2,
+        col=statusCol
+        )
+# add horizontal line
+abline( h=median(logcounts), col='blue')
+
+# not normal distribution
+# right skew
+# medians are very similar
+# small median differences will be taken care by normalization
+# this plot is before normalization
+
+
+################################# Challenge 1 ############################################
+# Use rlog function from DESes2 package to transform the data 
+# show boxplot to see the distribution
+# rlog is like log2 transformation
+# dose 2 additional things
+# 1) dose librarysize normalization
+# 2) tries to remove dependence of variance on mean
+# we will see more in the next session
+
+rlogcounts <- rlog(countdata)
+statusCol <- match( sampleinfo$Status, c( 'virgin', 'pregnant', 'lactate')) +1
+
+boxplot(rlogcounts,
+        xlab='',
+        ylab='log2(counts+1)',
+        las=2,
+        col=statusCol
+)
+# add horizontal line
+abline( h=median(logcounts), col='blue')
+
+
+############################# BREAK  ###########################################
+
+#################### PCA #########################################################
+# PCA shows the relationships between samples
+# This is dimensionality reduction technique
+# how many dimensions in our data?
+dim(countdata)
+
+# because we are more interested on sample sample differences not between gene gene differences, 
+# we can consider as 12 samples that is 12 dimensions
+# can not visualize more than 3 dimensions, more comfortable to view data on 2 dimensions.
+# PCA is a technique to project higher dimensions on two dimensional space
+# sample to sample variation determines how closely samples are related.
+# problem with counts data is the variance is depend on the mean expression
+
+# highly expressed genes show high variance
+# This means that few highly expressed and highly variable can hijack the PCA or clustering plots
+#par(mfrow=c(3,1))
+plot(rowMeans(countdata), rowSds(countdata), main='Raw data', xlim=c(0,10000), ylim=c(0,5000))
+
+# one solution is log2 transformation
+# this has just opposite effect
+# this also mean that few low expressed genes, which has high variability hijack the relationship plots
+plot(rowMeans(logcounts), rowSds(logcounts), main='log2 transformation')
+
+# Another solution is rlog or vst transformations
+# rlog or vast try to remove the variance dependency from mean
+# this means that plots are not biased toward high or low expressed genes
+plot( rowMeans(rlogcounts), rowSds(rlogcounts), main='rlog transformation')
+
+# this is the reason why pre processing quality check we use rlog or vst transformation
+# note this is only visualization purposes
+# for actual DE analysis DESeq2 expects raw counts data and it will do its own transformation
+
+library(ggfortify)
+rlogcounts <- rlog(countdata)
+# transpose
+# convention in R that tows are observations and columns are variables
+pcDat <- prcomp(t(rlogcounts))
+
+# see what is there inside
+ls(pcDat)
+autoplot( pcDat)
+
+# one important aspect of PCA
+# Number of PCs <= number of variables
+# PC1 explains highest variation
+# We usually show first 2 PCs
+# But you should be aware of other components
+# we can see how much variation explained by each PC
+
+pc_var <- (pcDat$sdev^2 / sum(pcDat$sdev^2)) * 100
+pc_var
+barplot(pc_var)
+
+# color PCA based on metadata
+autoplot(pcDat,
+        data=sampleinfo,
+        colour='CellType',
+        shape='Status',
+        size=5
+        )
+
+
+# what do you think about PCA plot
+# www.menti.com
+# code : 63 86 36
+
+
+# adding sample labels would be more informative
+library(ggrepel)
+autoplot(pcDat,
+         data=sampleinfo,
+         colour='CellType',
+         shape='Status',
+         size=5
+) +
+  geom_text_repel( aes(x=PC1, y=PC2, label=Sample), box.padding = 1)
+
+# The mislabeled samples
+# MCL1.DG, labeled as luminal but should be basal
+# MCL1.LA - other way round
+
+# relabel the samples
+# This topic I am not going to cover
+# all the code available
+sampleinfo <- sampleinfo %>% 
+  mutate(CellType=ifelse(Sample=="MCL1.DG", "basal", CellType)) %>% 
+  mutate(CellType=ifelse(Sample=="MCL1.LA", "luminal", CellType))
+
+# we already have SampleInfo_Corrected.txt file
+# Therefore you need not to worry
+#write_tsv(sampleinfo, "results/SampleInfo_Corrected.txt")
+
+```
