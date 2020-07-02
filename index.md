@@ -122,6 +122,7 @@ Methods](html/A_Introduction_to_RNAseq_Methods.html) - Sankari Nagarajan
 
 10:15 - 12:30 - [RNA-seq Pre-processing](html/02_Preprocessing_Data.html) - 
 Chandra Chilamakuri  
+    - [Practical solutions](html/02_Preprocessing_Data.Solutions.html)   
 
 12:30 - 13:30 Lunch
 
