@@ -79,13 +79,7 @@ For a given pathway:
 * n: number of differentially expressed genes
 * k: number of differentially expressed genes that are annotated to the pathway
 
-Reminder: number of combinations of k items chosen from a collection of size n: ${n \choose k}$
-
 Significance can be assessed with a the hypergeometric distribution:
-
-<!--
-$p = 1 - \displaystyle\sum_{i = 0}^{k-1}\frac{{M \choose i}{{N-M} \choose {n-i}}} {{N \choose n}}$
--->
 
 <!-- over-representation p-value -->
 ![](images/overRepPvalHyperGeoFormula.png)
