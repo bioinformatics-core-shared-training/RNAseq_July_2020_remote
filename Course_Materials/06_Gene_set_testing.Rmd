@@ -45,7 +45,7 @@ ie pathway A is enriched in our diff exp gene list
 ## Method
 
 This method tests whether genes in a pathway are present in a subset of our data
-more than expected.
+more than expected (explanations derived from the [clusterProfiler manual](https://yulab-smu.github.io/clusterProfiler-book/index.html)).
 
 Genes is the experiment are split in two ways:
 
@@ -88,7 +88,7 @@ $p = 1 - \displaystyle\sum_{i = 0}^{k-1}\frac{{M \choose i}{{N-M} \choose {n-i}}
 -->
 
 <!-- over-representation p-value -->
-![](../images/overRepPvalHyperGeoFormula.png)
+![](images/overRepPvalHyperGeoFormula.png)
 
 The test above is identical to the one-tailed Fisher's exact test.
 
@@ -96,7 +96,6 @@ The test above is identical to the one-tailed Fisher's exact test.
 fisher.test(d, alternative = "greater")
 ```
 
-See [clusterProfiler](https://yulab-smu.github.io/clusterProfiler-book/index.html)
 
 <!--
 https://yulab-smu.github.io/clusterProfiler-book/index.html
@@ -203,12 +202,10 @@ These are collections of human genes, however. Fortunately, these lists
 have been translated to mouse equivalents by the Walter+Eliza Hall Institute
 Bioinformatics service and made available for [download](http://bioinf.wehi.edu.au/software/MSigDB/).
 
-## Concept
+## Concept
 
-<!--
-Random walks: Weiner process and Brownian bridge
-https://www.coursera.org/lecture/network-biology/gene-set-enrichment-analysis-gsea-preliminaries-C4GxN
--->
+We will look into random walk, distributions and the Kolomogorov-Smirnoff test
+whose concept GSEA uses (inspired from [this course](https://www.coursera.org/lecture/network-biology/gene-set-enrichment-analysis-gsea-preliminaries-C4GxN)).
 
 ### Random walks
 
@@ -217,48 +214,58 @@ of the distance from 0.
 
 ```{r}
 # a path 
-
-plot.new( )
-plot.window( xlim=c(-10,10), ylim=c(-5,5) )
-axis( side=1 )
+plot.new()
+plot.window(xlim=c(-10,10), ylim=c(-5,5))
+axis(side=1)
 ```
 
 Starting at 0, we will take a step randomly in either direction and keep track
+of the distance from 0.
+
+A short walk:
 
 ```{r}
 # random walk
-
 rn <- rnorm(n=10,m=0,sd=0.5)
 rwalk <- cumsum(sign(rn))
 plot(rwalk, type="l", ylim=c(-5,5))
 abline(h=0)
 ```
 
-```{r}
-# a longer walk
+A longer walk:
 
+```{r}
 rn <- rnorm(n=1000,m=0,sd=0.5)
 rwalk <- cumsum(sign(rn))
 plot(rwalk, type="l")
 abline(h=0)
 ```
 
-We can force the walk to end at 0.
+We can force the walk to end at 0, by having the same number of steps in both
+directions.
 
 ```{r}
+# draw observations
 rn <- rnorm(n=1000,m=0,sd=0.5)
+# find indices of positive values (steps to the right)
 whichPos <- which(rn >= 0)
+# find indices of negative values (steps to the left)
 whichNeg <- which(rn < 0)
+# check number of steps in each direction
 length(whichPos)
 length(whichNeg)
+# concat indices for the same number of steps in each direction, eg 400 steps each
 rn2 <- c(rn[whichNeg][1:400], rn[whichPos][1:400])
+# re-shuffle
 rn2 <- sample(rn2)
+# compute walk
 rwalk <- cumsum(sign(rn2))
+# plot
 plot(rwalk, type="l")
 abline(h=0)
 ```
 
-The probability of observing the maximum distance observed here may be computed.
+The probability of observing the maximum distance observed here can be computed.
 
 ### Distributions
 
@@ -284,12 +291,13 @@ plot(xx, cumulative, type='l')
 The Kolmogorov-Smirnov (KS) test of goodness-of-fit tests whether the observed data is consistent
 with a given cumulative density function (CDF).
 
-We will keep the random variable following the Normal distribution. We will make some observations and plot both the observed and expected CDFs.
+To illustrate the method, we will keep the random variable following the Normal distribution. We will make some observations and plot both the observed and expected CDFs.
 
 Because the observed data was obtained with a finite sample, the observed CDF will differ from the theoretical CDF by some random scatter.
 
-KS test considers that if there is no difference between the two CDFs then that difference should be a
-random walk, with both ends fixed at 0.
+The KS test considers that if there is no difference between the two CDFs then that difference should be a
+random walk, with both ends fixed at 0. For which we can compute the probability
+of observing a given distance.
 
 Example:
 
@@ -335,7 +343,7 @@ rank distribution.
 The article describing the original software is available 
 [here](http://www.pnas.org/content/102/43/15545.long), while this [commentary on GSEA](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1266131/) provides a shorter description.
 
-![](../images/gseaArticleFig1.png)
+![](images/gseaArticleFig1.png)
 
 We will use the [`fgsea`](http://www.bioconductor.org/packages/release/bioc/vignettes/fgsea/inst/doc/fgsea-tutorial.html) 
 package [@Sergushichev2016] that implements the same algorithm in R. 'fgsea' stands for' "fast preranked gene set enrichment analysis (GSEA)".
