@@ -93,20 +93,24 @@ Methods](html/A_Introduction_to_RNAseq_Methods.html) - Sankari Nagarajan
 10:15 - 11:15 Raw read file format and QC - Abbi Edwards  
     - [Introductory slides](html/B_FastQC.html)  
     - [Practical](html/B_FastQC_practical.html)  
+    - [Practical solutions](html/B_FastQC_practical.Solutions.html)
 
 11:15 - 12:45 Short read alignment with HISAT2 - Zeynep Kalender Atak  
     - [Introductory slides](html/C_Alignment_with_HISAT2.html)  
     - [Practical](html/C_Alignment_with_HISAT2_practical.html)  
+    - [Practical solutions](html/C_Alignment_with_HISAT2.Solutions.html)
 
 12:45 - 13:45 Lunch
 
 13:45 - 15:30 QC of alignment - Zeynep Kalender Atak  
     - [Introductory slides](html/D_QC_of_aligned_reads.html)  
     - [Practical](html/D_QC_of_aligned_reads_practical.html)  
+    - [Practical solutions](html/D_QC_of_aligned_reads.Solutions.html)
 
 15:30 - 17:00 Quantification with SubRead - Chandra Chilamakuri  
     - [Introductory slides](html/E_Read_Counts_with_Subread.html)  
     - [Practical](html/E_Read_Counts_with_Subread.practical.html)  
+    - [Practical solutions](html/E_Read_Counts_with_Subread.Solutions.html)
 
 <!-- Goodbye: Abbi -->
 
@@ -118,12 +122,13 @@ Methods](html/A_Introduction_to_RNAseq_Methods.html) - Sankari Nagarajan
 
 10:15 - 12:30 - [RNA-seq Pre-processing](html/02_Preprocessing_Data.html) - 
 Chandra Chilamakuri  
+    - [Practical solutions](html/02_Preprocessing_Data.Solutions.html)   
 
 12:30 - 13:30 Lunch
 
 13:30 - 15:30 Statistical Analysis of Bulk RNAseq Data - Dominique-Laurent  
 Couturier     
-    - [Slides](html/StatsRNAseq_Couturier_20-05-2020.pdf)   
+    - [Slides](html/StatsRNAseq_Couturier_02-07-2020.pdf)   
     - [Practical (html)](html/StatsRNAseq_Couturier_20-05-2020.html) [(rmd)](html/StatsRNAseq_Couturier_20-05-2020.Rmd)  
 
 15:30 - 17:00 Experimental Design of Bulk RNAseq studies - Sankari Nagarajan  
