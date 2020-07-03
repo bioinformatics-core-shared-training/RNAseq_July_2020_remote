@@ -152,6 +152,7 @@ results](html/05_Annotation_and_Visualisation.html) - Abbi Edwards
     - [practical solutions](html/05_Annotation_and_Visualisation.Solutions.html)  
 
 15:30 - 17:00 [Gene-set testing](html/06_Gene_set_testing.html) - Stephane Ballereau   
+    - [practical solutions](html/06_Gene_set_testing.Solutions.html)  
 
 <!-- Goodbye: Stephane -->
 
